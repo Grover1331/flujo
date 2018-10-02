@@ -583,6 +583,14 @@ require get_parent_theme_file_path( '/inc/customizer.php' );
  * Custom Post Types.
  */
 require get_parent_theme_file_path( '/inc/custom_posts.php' );
+/**
+ * Custom Post Types.
+ */
+require get_parent_theme_file_path( '/inc/send_api_request.php' );
+/**
+ * Custom Post Types.
+ */
+require get_parent_theme_file_path( '/inc/custom_functions.php' );
 
 /**
  * SVG icons functions and filters.
