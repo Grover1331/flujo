@@ -28,4 +28,86 @@ function get_department_listing($user_latitude ,$user_longitude) {
     array_multisort($price, SORT_ASC, $data);
     return $data = array_slice($data, 0 , 8);
 }
+
+
+function get_department_listing_filter($user_latitude ,$user_longitude , $getFilterData) {
+    global $post;
+    $data = array();
+    query_posts(array('post_type' => 'departamento',  'numberposts' => -1 , 'post__in' => $getFilterData ));
+    while (have_posts()) : the_post();
+
+    //Collecting Data
+        $latitude = get_post_meta($post->ID, "latitude" , true);
+        $longitude = get_post_meta($post->ID, "longitude" , true);
+        $address = get_post_meta($post->ID, "address" , true);
+        $city = get_post_meta($post->ID, "city" , true);
+        $new = get_post_meta($post->ID, "new" , true);
+    //Collecting Data
+
+    //Collecting Distance
+    $distance = distance($user_latitude , $user_longitude ,$latitude , $longitude , "K");
+    //Collecting Distance
+
+    $data[] = array("title" => (isset($post->post_title) ? $post->post_title : '')  , "address" => (isset($address) ? $address : '')  , "city" => (isset($city) ? $city : '')  , "distance" => $distance , "isNew" => (isset($new) ? $new : 'no'));
+    endwhile; wp_reset_query();
+
+    $price = array();
+    foreach ($data as $key => $row) {
+        $price[$key] = $row['distance'];
+    }
+    array_multisort($price, SORT_ASC, $data);
+    return $data = array_slice($data, 0 , 8);
+}
+
+//Get FilterData
+function getFilterData($departmento, $municipio, $barrio) {
+    //initial Data Collect 
+    $posts = get_posts(array( 'numberposts' => -1, 'post_type' => 'departamento', 'post_status' => 'publish' ));
+    //All Array 
+    foreach ($posts as $postskey => $postsvalue) {
+        $postsA[] = $postsvalue->ID;
+    }
+    if($departmento != "") {
+        $department = get_posts(array( 'numberposts' => -1,  'post_type' => 'departamento', 'post_status' => 'publish', "department_category" => $departmento ));
+
+        foreach ($department as $departmentkey => $departmentvalue) {
+            $departmentA[] = $departmentvalue->ID;
+        }
+    } else {
+        $departmentA = $postsA;
+    }
+    if($municipio != "") {
+        $municipi = get_posts(array( 'numberposts' => -1, 'post_type' => 'departamento', 'post_status' => 'publish', 'meta_query' => array(
+                array(
+                    'key' => 'municipio',
+                    'value' => $municipio,
+                    'compare' => 'LIKE'
+                )
+            ),
+        ));
+        foreach ($municipi as $municipikey => $municipivalue) {
+            $municipiA[] = $municipivalue->ID;
+        }
+    } else {
+        $municipiA = $postsA;
+    }
+    if($barrio != "") {
+        $barri = get_posts(array( 'numberposts' => -1, 'post_type' => 'departamento', 'post_status' => 'publish', 'meta_query' => array(
+                array(
+                    'key' => 'barrio',
+                    'value' => $barrio,
+                    'compare' => 'LIKE'
+                )
+            ),
+        ));
+        foreach ($barri as $barrikey => $barrivalue) {
+            $barriA[] = $barrivalue->ID;
+        }
+    } else {
+        $barriA = $postsA;
+    }
+    $intersect = array_intersect($departmentA, $municipiA, $barriA);
+    return $intersect;
+}
+//Get FilterData
 ?>
