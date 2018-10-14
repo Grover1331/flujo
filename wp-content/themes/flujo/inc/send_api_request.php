@@ -73,6 +73,9 @@ function getFilterData($departmento, $municipio, $barrio) {
         foreach ($department as $departmentkey => $departmentvalue) {
             $departmentA[] = $departmentvalue->ID;
         }
+        if(empty($departmentA)) {
+            $departmentA = array();
+        }
     } else {
         $departmentA = $postsA;
     }
@@ -88,6 +91,9 @@ function getFilterData($departmento, $municipio, $barrio) {
         foreach ($municipi as $municipikey => $municipivalue) {
             $municipiA[] = $municipivalue->ID;
         }
+        if (empty($municipiA)) {
+            $municipiA = array();
+        }
     } else {
         $municipiA = $postsA;
     }
@@ -102,6 +108,9 @@ function getFilterData($departmento, $municipio, $barrio) {
         ));
         foreach ($barri as $barrikey => $barrivalue) {
             $barriA[] = $barrivalue->ID;
+        }
+        if (empty($barriA)) {
+            $barriA = array();
         }
     } else {
         $barriA = $postsA;
