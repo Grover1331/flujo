@@ -10,7 +10,7 @@ function get_department_listing($user_latitude ,$user_longitude) {
         $latitude = get_post_meta($post->ID, "latitude" , true);
         $longitude = get_post_meta($post->ID, "longitude" , true);
         $address = get_post_meta($post->ID, "address" , true);
-        $city = get_post_meta($post->ID, "city" , true);
+        $city = get_post_meta($post->ID, "barrio" , true);
         $new = get_post_meta($post->ID, "new" , true);
     //Collecting Data
 
@@ -40,7 +40,7 @@ function get_department_listing_filter($user_latitude ,$user_longitude , $getFil
         $latitude = get_post_meta($post->ID, "latitude" , true);
         $longitude = get_post_meta($post->ID, "longitude" , true);
         $address = get_post_meta($post->ID, "address" , true);
-        $city = get_post_meta($post->ID, "city" , true);
+        $city = get_post_meta($post->ID, "barrio" , true);
         $new = get_post_meta($post->ID, "new" , true);
     //Collecting Data
 
@@ -68,7 +68,15 @@ function getFilterData($departmento, $municipio, $barrio) {
         $postsA[] = $postsvalue->ID;
     }
     if($departmento != "") {
-        $department = get_posts(array( 'numberposts' => -1,  'post_type' => 'departamento', 'post_status' => 'publish', "department_category" => $departmento ));
+
+        $department = get_posts(array('numberposts' => -1, 'post_type' => 'departamento', 'post_status' => 'publish', 'meta_query' => array(
+            array(
+                'key' => 'departments',
+                'value' => $departmento,
+                'compare' => 'LIKE'
+            )
+        ),
+        ));
 
         foreach ($department as $departmentkey => $departmentvalue) {
             $departmentA[] = $departmentvalue->ID;
@@ -119,4 +127,20 @@ function getFilterData($departmento, $municipio, $barrio) {
     return $intersect;
 }
 //Get FilterData
+
+
+//Filer Elements 
+
+function getFilterElements($name, $section) {
+    global $wpdb;
+    if($section == "D") {
+        $parentName = 0;
+    } else {
+        $parentName = $name;
+    }
+    $getData = $wpdb->get_results("SELECT `name` FROM `wtw_department_rel` WHERE `parent_name` = '$parentName' AND `section` = '$section'");
+    return $getData;
+}
+//Filer Elements 
+
 ?>
