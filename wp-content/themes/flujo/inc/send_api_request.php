@@ -18,7 +18,7 @@ function get_department_listing($user_latitude ,$user_longitude) {
     $distance = distance($user_latitude , $user_longitude ,$latitude , $longitude , "K");
     //Collecting Distance
 
-    $data[] = array("title" => (isset($post->post_title) ? $post->post_title : '')  , "address" => (isset($address) ? $address : '')  , "city" => (isset($city) ? $city : '')  , "distance" => $distance , "isNew" => (isset($new) ? $new : 'no'));
+    $data[] = array("title" => (isset($post->post_title) ? $post->post_title : '')  , "address" => (isset($address) ? $address : '')  , "city" => (isset($city) ? $city : '')  , "distance" => $distance , "isNew" => (isset($new) ? $new : 'no'), 'latitude' => (isset($latitude) ? $latitude : ''), 'longitude' => (isset($longitude) ? $longitude : ''));
     endwhile; wp_reset_query();
 
     $price = array();
@@ -48,7 +48,7 @@ function get_department_listing_filter($user_latitude ,$user_longitude , $getFil
     $distance = distance($user_latitude , $user_longitude ,$latitude , $longitude , "K");
     //Collecting Distance
 
-    $data[] = array("title" => (isset($post->post_title) ? $post->post_title : '')  , "address" => (isset($address) ? $address : '')  , "city" => (isset($city) ? $city : '')  , "distance" => $distance , "isNew" => (isset($new) ? $new : 'no'));
+    $data[] = array("title" => (isset($post->post_title) ? $post->post_title : '')  , "address" => (isset($address) ? $address : '')  , "city" => (isset($city) ? $city : '')  , "distance" => $distance , "isNew" => (isset($new) ? $new : 'no'), 'latitude' => (isset($latitude) ? $latitude : ''), 'longitude' => (isset($longitude) ? $longitude : ''));
     endwhile; wp_reset_query();
 
     $price = array();
