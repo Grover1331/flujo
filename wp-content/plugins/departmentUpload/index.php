@@ -83,7 +83,7 @@ jQuery('.select-option').each(function(){
 	<h1>Subir Restaurantes</h1>
 	<div class="section-table-details">
 <p>Evite la página de recarga una vez que se cargan los productos</p>
-<img src="http://swd.stagingdevsite.com/dev/wp-content/plugins/departmentUpload/images/progressBar.gif" class="img-responsive">
+<img src="<?php echo site_url(); ?>/wp-content/plugins/departmentUpload/images/progressBar.gif" class="img-responsive">
 </div>
 </div>
 <div class="bx-innr bx_inner_3" style="display:none;">

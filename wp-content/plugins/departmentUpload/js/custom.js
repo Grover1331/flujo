@@ -75,6 +75,7 @@ jQuery(function($) {
 jQuery(document).ready(function(){
 
 	jQuery(".upload_products").click(function(){
+		var link = jQuery(".site_url").val();
 
 		jQuery(".bx_inner_1").fadeOut("slow");
 
@@ -84,7 +85,7 @@ jQuery(document).ready(function(){
 
 			type: "POST",
 
-			url: link+'wp-content/plugins/departmentUpload/ajax/upload_products.php', 
+			url: link+'/wp-content/plugins/departmentUpload/ajax/upload_products.php', 
 
 			data:{format:'raw'},
 
@@ -113,6 +114,7 @@ jQuery(document).ready(function(){
 
 	jQuery(".upload_products1").click(function(){
 
+		var link = jQuery(".site_url").val();
 		jQuery(".bx_inner_1").fadeOut("slow");
 
 		jQuery(".bx_inner_2").fadeIn("slow");
@@ -121,7 +123,7 @@ jQuery(document).ready(function(){
 
 			type: "POST",
 
-			url: link+'wp-content/plugins/departmentUpload/ajax/upload_products1.php', 
+			url: link+'/wp-content/plugins/departmentUpload/ajax/upload_products1.php', 
 
 			data:{format:'raw'},
 

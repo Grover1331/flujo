@@ -596,3 +596,9 @@ require get_parent_theme_file_path( '/inc/custom_functions.php' );
  * SVG icons functions and filters.
  */
 require get_parent_theme_file_path( '/inc/icon-functions.php' );
+/**
+ * SVG icons functions and filters.
+ */
+require get_parent_theme_file_path( '/inc/meta-boxes.php' );
+
+
