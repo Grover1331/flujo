@@ -94,7 +94,7 @@ jQuery(document).ready(function(){
 
 					type: "POST",
 
-					url: link + 'wp-content/plugins/departmentUpload/ajax/upload_products.php',
+					url: link + '/wp-content/plugins/departmentUpload/ajax/upload_products.php',
 
 					data: { format: 'raw' },
 
@@ -133,7 +133,7 @@ jQuery(document).ready(function(){
 
 					type: "POST",
 
-					url: link + 'wp-content/plugins/departmentUpload/ajax/upload_products1.php',
+					url: link + '/wp-content/plugins/departmentUpload/ajax/upload_products1.php',
 
 					data: { format: 'raw' },
 
