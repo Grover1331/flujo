@@ -10,7 +10,7 @@ if ($section != "") {
        $arrayFin[] = $value->name;
    }
     if (empty($getFilterElements)) {
-        $json = array("success" => 0, "result" => array(), "error" => "No Data Found");
+        $json = array("success" => 0, "result" => array(), "error" => "Primero debes seleccionar el Departamento, Municipio y por último El Barrio.");
     } else {
         $json = array("success" => 1, "result" => $arrayFin, "error" => "No Error Found");
     }
