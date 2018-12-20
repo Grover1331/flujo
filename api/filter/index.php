@@ -10,7 +10,7 @@ if ($latitude != "" && $longitude != "") {
     $getFilterData = getFilterData($departmento , $municipio, $barrio);
     $final = get_department_listing_filter($latitude, $longitude , $getFilterData);
     if(empty($getFilterData)) {
-        $json = array("success" => 0, "result" => array(), "error" => "No Data Found");
+        $json = array("success" => 0, "result" => array(), "error" => "No hemos encontrando un D1 bajo dicho parámetro. Inténtalo nuevamente seleccionado otro departamento / municipio / barrio");
     } else {
         $json = array("success" => 1, "result" => $final, "error" => "No Error Found");
     }
