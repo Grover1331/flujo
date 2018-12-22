@@ -99,7 +99,7 @@ function myplugin_add_call_restaurants_timings($post)
                             $getFilterElements = getFilterElements($departments1, "M");
                             foreach ($getFilterElements as $key => $value) {
                                 ?>
-                            <option <?php if ($municipio == $value->name) {
+                            <option <?php if (trim($municipio) == $value->name) {
                                         echo "selected";
                                     } ?> value="<?php echo $value->name; ?>"><?php echo $value->name; ?></option>
                             <?php 
@@ -115,7 +115,7 @@ function myplugin_add_call_restaurants_timings($post)
                             $getFilterElements = getFilterElements($municipio, "B");
                             foreach ($getFilterElements as $key => $value) {
                                 ?>
-                            <option <?php if ($barrio == $value->name) {
+                            <option <?php if (trim($barrio) == $value->name) {
                                         echo "selected";
                                     } ?> value="<?php echo $value->name; ?>"><?php echo $value->name; ?></option>
                             <?php 
