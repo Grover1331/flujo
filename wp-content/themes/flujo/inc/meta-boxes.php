@@ -32,6 +32,9 @@ function myplugin_add_call_restaurants_timings($post)
      */
     $post_id = $post->ID;
     global $wpdb;
+    $municipio = get_post_meta($post_id , "municipio" , true);
+    $barrio = get_post_meta($post_id , "barrio" , true);
+    $departments1 = get_post_meta($post_id , "departments" , true);
 
     ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -42,17 +45,20 @@ function myplugin_add_call_restaurants_timings($post)
 		<link rel="stylesheet" type="text/css" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/style.css" />
         <div class="meta-box-section">
 			<div class="container1">
-            <div class="form-group">
+            <?php
+            if($municipio == "" && $barrio == "" && $departments == "" )  {
+                ?>
+                <div class="form-group">
             <label for="deparments">Department</label>
             <select name="departments" id="deparments" class="form-control" onchange="changeDepartment(this , 'M');">
                 <option value="">Select Department</option>
                 <?php 
                 $getFilterElements = getFilterElements("", "D");
-               foreach ($getFilterElements as $key => $value) {
-                   ?>
+                foreach ($getFilterElements as $key => $value) {
+                    ?>
                    <option value="<?php echo $value->name; ?>"><?php echo $value->name; ?></option>
                    <?php 
-               }
+                }
                 ?>
             </select>
             </div>
@@ -68,6 +74,60 @@ function myplugin_add_call_restaurants_timings($post)
 
                 </select>
             </div>
+                <?php
+            } else {
+                ?>
+                <div class="form-group">
+                <label for="deparments">Department</label>
+                <select name="departments" id="deparments" class="form-control" onchange="changeDepartment(this , 'M');">
+                    <option value="">Select Department</option>
+                    <?php 
+                    $getFilterElements = getFilterElements("", "D");
+                    foreach ($getFilterElements as $key => $value) {
+                        ?>
+                    <option <?php if(trim($departments1) == $value->name) { echo "selected"; } ?> value="<?php echo $value->name; ?>"><?php echo $value->name; ?></option>
+                    <?php 
+                    }
+                    ?>
+                </select>
+                </div>
+                <div class="form-group municipality M">
+                <label for="municipality">Municipality</label>
+                    <select name="municipality" id="municipality" class="form-control" onchange="changeDepartment(this , 'B');">
+                         <option value="">Select Department</option>
+                            <?php 
+                            $getFilterElements = getFilterElements($departments1, "M");
+                            foreach ($getFilterElements as $key => $value) {
+                                ?>
+                            <option <?php if ($municipio == $value->name) {
+                                        echo "selected";
+                                    } ?> value="<?php echo $value->name; ?>"><?php echo $value->name; ?></option>
+                            <?php 
+                }
+                ?>
+                    </select>
+                </div>
+                <div class="form-group barrio B">
+                <label for="barrio">Barrio</label>
+                    <select name="barrio" id="barrio" class="form-control" >
+                         <option value="">Select Department</option>
+                            <?php 
+                            $getFilterElements = getFilterElements($municipio, "B");
+                            foreach ($getFilterElements as $key => $value) {
+                                ?>
+                            <option <?php if ($barrio == $value->name) {
+                                        echo "selected";
+                                    } ?> value="<?php echo $value->name; ?>"><?php echo $value->name; ?></option>
+                            <?php 
+                        }
+                        ?>
+                    </select>
+                </div>
+               
+                <?php
+            }
+            ?>
+            
             </div>
             <script>
             function changeDepartment(event , section) {
@@ -104,6 +164,9 @@ function myplugin_save_meta_restaurants_timings($post_id)
             return;
         }
     }
+    update_post_meta($post_id, "municipio", $_POST['municipality']);
+    update_post_meta($post_id, "barrio", $_POST['barrio']);
+    update_post_meta($post_id, "departments", $_POST['departments']);
     
 
 }
