@@ -25,7 +25,7 @@ $args = array(
     'rewrite' => array('slug' => 'department_category'),
 );
 
-register_taxonomy('department_category', array('department_category'), $args);
+// register_taxonomy('department_category', array('department_category'), $args);
 function codex_int_Departamento()
 {
     $labels = array(
