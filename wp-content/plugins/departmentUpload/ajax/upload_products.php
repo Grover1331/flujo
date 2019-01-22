@@ -15,6 +15,7 @@ global $wpdb;
 
 require_once(ABSPATH . 'wp-content/plugins/departmentUpload/inc/reader.php');
 $excel = new Spreadsheet_Excel_Reader();
+
 function get_attachment_id_from_src($image_src)
 {
 
@@ -33,6 +34,7 @@ foreach ($wpdb->get_results("SELECT * FROM `wtw_upload_file` ORDER BY `url_id` D
 
 	$check = explode("/flujo/", $row->url);
 }
+
 
 $x = 1;
 $excel->read(ABSPATH . $check[1]);
@@ -57,14 +59,26 @@ while ($x <= $excel->sheets[0]['numRows']) {
 			add_post_meta($post_id, "departments", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][8]), true);
 			add_post_meta($post_id, "new", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][9]), true);
 		} else {
-			update_post_meta($getData[0]->post_id, "regno", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][1]), true);
-			update_post_meta($getData[0]->post_id, "address", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][3]), true);
-			update_post_meta($getData[0]->post_id, "latitude", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][4]), true);
-			update_post_meta($getData[0]->post_id, "longitude", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][5]), true);
-			update_post_meta($getData[0]->post_id, "barrio", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][6]), true);
-			update_post_meta($getData[0]->post_id, "municipio", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][7]), true);
-			update_post_meta($getData[0]->post_id, "departments", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][8]), true);
-			update_post_meta($getData[0]->post_id, "new", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][9]), true);
+			$my_post = array(
+				'ID' => $getData[0]->post_id,
+				'post_title' => iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][2]),
+			);
+
+// Update the post into the database
+			wp_update_post($my_post);
+			echo "<pre>";
+			print_r($getData[0]);
+			print_r($excel->sheets[0]['cells'][$x]);
+			print_r(iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][8]));
+			echo "</pre>";
+			update_post_meta($getData[0]->post_id, "regno", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][1]));
+			update_post_meta($getData[0]->post_id, "address", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][3]));
+			update_post_meta($getData[0]->post_id, "latitude", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][4]));
+			update_post_meta($getData[0]->post_id, "longitude", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][5]));
+			update_post_meta($getData[0]->post_id, "barrio", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][6]));
+			update_post_meta($getData[0]->post_id, "municipio", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][7]));
+			update_post_meta($getData[0]->post_id, "departments", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][8]));
+			update_post_meta($getData[0]->post_id, "new", iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][9]));
 		}
 			
 			

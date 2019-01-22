@@ -139,7 +139,7 @@ function getFilterElements($name, $section) {
     } else {
         $parentName = $name;
     }
-    $getData = $wpdb->get_results("SELECT `name` FROM `wtw_department_rel` WHERE `parent_name` = '$parentName' AND `section` = '$section'");
+    $getData = $wpdb->get_results("SELECT `name` FROM `wtw_department_rel` WHERE `parent_name` = '$parentName' AND `section` = '$section' ORDER BY name");
     return $getData;
 }
 //Filer Elements 
