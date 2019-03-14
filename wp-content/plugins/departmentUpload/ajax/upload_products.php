@@ -42,6 +42,9 @@ while ($x <= $excel->sheets[0]['numRows']) {
 	if ($x > 1) {
 		$regno = $excel->sheets[0]['cells'][$x][1];
 		$getData = $wpdb->get_results("SELECT * FROM `wtw_postmeta` WHERE `meta_key` = 'regno' AND `meta_value` = '$regno'");
+		if($excel->sheets[0]['cells'][$x][9] == "SI") {
+			$excel->sheets[0]['cells'][$x][9] = "YES";
+		}
 		if(empty($getData)) {
 			$post_information = array(
 				'post_title' => iconv('ISO-8859-1', 'UTF-8', $excel->sheets[0]['cells'][$x][2]),
